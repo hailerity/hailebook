@@ -35,11 +35,15 @@ page '/', layout: 'index_layout'
 # Methods defined in the helpers block are available in templates
 # https://middlemanapp.com/basics/helper-methods/
 
-# helpers do
-#   def some_helper
-#     'Helping'
-#   end
-# end
+helpers do
+  def all_notes
+    Dir.glob("#{root}/source/notes/**/*.md").map do |fpath|
+      path = fpath.match(/source(.*)\.md/)[1]
+      name = path.match(/notes\/([^\.]*)/)[1]
+      [name, path]
+    end.to_h
+  end
+end
 
 # Build-specific configuration
 # https://middlemanapp.com/advanced/configuration/#environment-specific-settings

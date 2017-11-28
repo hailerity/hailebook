@@ -7,8 +7,19 @@
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Use the title from a page's frontmatter if it has one -->
     <title><%= current_page.data.title || "Middleman" %></title>
+    <%= stylesheet_link_tag "note" %>
+    <%= javascript_include_tag "note" %>
   </head>
   <body>
-    <%= yield %>
+    <div class="sidebar">
+      <ol>
+        <% all_notes.each do |name, path| %>
+        <li><a href="<%= path %>"><%= name %></a></li>
+        <% end %>
+      </ol>
+    </div>
+    <div class="note-content">
+      <%= yield %>
+    </div>
   </body>
 </html>
