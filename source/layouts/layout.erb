@@ -9,17 +9,56 @@
     <title><%= current_page.data.title || "Middleman" %></title>
     <%= stylesheet_link_tag "note" %>
     <%= javascript_include_tag "note" %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
   </head>
-  <body>
-    <div class="sidebar">
-      <ol>
-        <% all_notes.each do |name, path| %>
-        <li><a href="<%= path %>"><%= name %></a></li>
-        <% end %>
-      </ol>
+  <body class="pushable">
+    <div class="ui left visible sidebar push" style="z-index: 1000; width: 400px; background-color: #f5f5f5; border-right: .125rem solid #d4d4d4; box-shadow: none;">
+      <div class="ui segment basic">
+        <div class="ui card" style="text-align: center; margin: auto; background: none; box-shadow:none;">
+          <img class="ui circular image" style="border-radius: 500rem !important; margin: auto; width: 150px;" src="https://semantic-ui.com/examples/assets/images/avatar/tom.jpg">
+          <div class="content" style="border-top: none;">
+            <div class="header">Hai Le</div>
+            <div class="meta">
+              <a class="group">hailerity</a>
+            </div>
+            <div class="description">It's all about fixing bugs and optimizing performanace</div>
+          </div>
+          <div class="extra content">
+            <a class="right floated created">Arbitrary</a>
+            <a class="friends">
+              Arbitrary</a>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="note-content">
-      <%= yield %>
+
+    <div class="pusher" style="margin-left: 400px; margin-right: 300px;">
+      <div class="ui segment basic"
+        <%= yield %>
+      </div>
+    </div>
+    <div class="ui right visible sidebar push" style="z-index: 1000; width: 300px; background-color: #f5f5f5; border-left: .125rem solid #d4d4d4; box-shadow: none;">
+      <div class="ui segment basic">
+        <h3>Notes</h3>
+        <ol>
+          <% all_notes.each do |name, path| %>
+          <li><a href="<%= path %>"><%= name %></a></li>
+          <% end %>
+        </ol>
+      </div>
     </div>
   </body>
+
+  <script>
+     $('.ui.sidebar.left')
+      .sidebar('setting', 'exclusive', false)
+      .sidebar('setting', 'dimPage', false)
+      .sidebar('show')
+     $('.ui.sidebar.right')
+      .sidebar('setting', 'exclusive', false)
+      .sidebar('setting', 'dimPage', false)
+      .sidebar('show')
+  </script>
 </html>
